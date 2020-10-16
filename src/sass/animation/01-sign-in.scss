@@ -1,0 +1,92 @@
+.head {
+    margin: 20px auto 0;
+    width: 200px;
+}
+.head__img {
+    display: block;
+    height: 200px;
+    z-index: 2;
+    position: relative;
+
+    img {
+        width: 100%;
+        border-radius: 50%;
+    }
+}
+.head__glow {
+  position: absolute;
+}
+.glow-1 {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: rgba(255, 252, 0, 1);
+    opacity: 0.4;
+    transform: scale(1);
+    &.a-glow {
+        animation: glow 0.7s ease-in;
+        animation-iteration-count: 1;
+    }
+}
+.glow-2 { // 不要用 after: after 會跟 parent 同時長大
+      width: 200px;
+      height: 200px;
+      background-color: rgba(255, 120, 0, 1);
+      opacity: 0.4;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -100px;
+      margin-top: -100px;
+      transform: scale(1);
+
+      &.a-glow {
+        animation: glow 0.7s ease-in;
+        animation-iteration-count: 1;
+        animation-delay: 0.4s;
+      }
+  }
+
+@keyframes glow {
+    0% {
+        transform: scale(1);
+        opacity: 0.4;
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+.arrow-up {
+    // opacity: 0;
+    color: #fff;
+    position: relative;
+    text-align: center;
+    padding-top: 20px;
+    &:after {
+        content: '↑';
+        position: absolute;
+        left: 50%;
+        margin-left: -10px;
+        margin-top: -20px;
+        transform: skewY(0);
+        animation: spin 0.7s infinite;
+    }
+}
+
+@keyframes spin {
+    0% {
+         transform: skewY(0);
+    }
+    25% {
+        transform: skewY(-30deg);
+    }
+    50% {
+        transform: skewY(0);
+    }
+    75% {
+        transform: skewY(30deg);
+    }
+}
