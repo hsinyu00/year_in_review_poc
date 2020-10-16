@@ -5,7 +5,7 @@
 @import "normalize";
 @import "utility";
 body {
-  background-color: rgba(215, 86, 75, 1);
+  background-color: #3f6dd1
 }
 .navbar {
   background-color: #fff;
@@ -93,6 +93,8 @@ body {
   }
 }
 
-@import 'animation/01-sign-in';
+
+@import 'animation/01-home';
+@import 'animation/03-sign-in';
 @import 'animation/07-login';
 

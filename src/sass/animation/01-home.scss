@@ -1,0 +1,38 @@
+#fullpage {
+height: 100vh;
+}
+#grass1 {
+    transform-origin: bottom left;
+    transform: scale(0.1) rotate(0);
+    animation: grass1 1.5s alternate infinite;
+    position: absolute;
+    left: -20px;
+    bottom: -20px;
+}
+
+#grass2 {
+    transform-origin: bottom right;
+    transform: scale(0.12) rotate(0);
+    animation: grass2 1.5s alternate infinite;
+    animation-delay: 0.5s;
+    position: absolute;
+    right: 0;
+    bottom: -30px;
+}
+
+@keyframes grass1 {
+    0% {
+        transform: scale(0.1) rotate(0);
+    }
+    100% {
+        transform: scale(0.12) rotate(20deg);
+    }
+}
+@keyframes grass2 {
+    0% {
+        transform: scale(0.12) rotate(0);
+    }
+    100% {
+        transform: scale(0.1) rotate(-20deg);
+    }
+}
