@@ -17,10 +17,7 @@ mix.webpackConfig(() => ({
   .js('src/js/tree.js', 'public/js')
   .sass('src/sass/app.scss', 'public/css')
   // .sass('src/sass/example.scss', 'public/css')
-  .copyDirectory('src/icon', 'public/icon')
   .copyDirectory('src/images', 'public/images')
-  .copyDirectory('src/video', 'public/video')
-  .copyDirectory('src/fonts', 'public/fonts')
   .copy('node_modules/fullpage.js/dist/fullpage.min.js', 'public/vendor')
   .copy('node_modules/fullpage.js/dist/fullpage.min.css', 'public/vendor')
 
