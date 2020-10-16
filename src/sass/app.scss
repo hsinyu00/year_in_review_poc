@@ -1,0 +1,97 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import "normalize";
+@import "utility";
+body {
+  background-color: rgba(215, 86, 75, 1);
+}
+.navbar {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+
+/* earth rotate */
+#ball {
+  animation: changeBg .7s infinite;
+  width: 200px;
+  height: 200px;
+  background-size: contain;
+  background-image: url("../images/ball/ball1.png");
+  background-repeat: no-repeat;
+}
+@keyframes changeBg
+{
+   0%   {background-image: url("../images/ball/ball1.png");}
+   16%  {background-image: url("../images/ball/ball2.png");}
+   32%  {background-image: url("../images/ball/ball3.png");}
+   48%  {background-image: url("../images/ball/ball4.png");}
+   64%  {background-image: url("../images/ball/ball5.png");}
+   80%  {background-image: url("../images/ball/ball6.png");}
+}
+
+#slide2 {
+  .cover-list {
+    transition: transform .5s ease-in-out;
+    img {
+      width: 150px;
+    }
+  }
+  .cover-list:nth-of-type(1).translated {
+    transform: translateY(100vh);
+  }
+  .cover-list:nth-of-type(2).translated {
+    transform: translateY(120vh);
+  }
+  .cover-list:nth-of-type(3).translated {
+    transform: translateY(140vh);
+  }
+}
+
+.building-container {
+  display: flex;
+  position: absolute;
+    bottom: 0;
+    align-items: flex-end;
+}
+.building {
+  width: 100px;
+  position: relative;
+  border: 1px solid #000;
+}
+#building1 {
+  height: 200px;
+}
+#building2 {
+  height: 300px;
+}
+.sun {
+    display: block;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    transform: translate(10%, -10%);
+    border-radius: 50%;
+    background-image: radial-gradient(circle, #ffe600 0%, rgba(255, 252, 0, 0.8995973389) 41%, rgba(255, 248, 0, 0) 69%);
+    &.glow {
+      animation: sun 3s ease-in;
+    }
+}
+
+#building3 {
+  height: 150px;
+}
+
+@keyframes sun {
+  0%   {background-image: radial-gradient(circle, rgba(255,230,0,1) 0%, rgba(255,252,0,0.8995973389355743) 71%, rgba(255,248,0,0) 100%);}
+  100%   {
+    background-image: radial-gradient(circle, rgba(254,238,88,1) 0%, rgba(255,252,0,0.8995973389355743) 19%, rgba(250,247,154,0) 100%);
+    transform: scale(1.5);
+  }
+}
+
+@import 'animation/01-sign-in';
+
