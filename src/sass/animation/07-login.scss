@@ -1,0 +1,30 @@
+.earth {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-image: url("../images/new-ball/1.jpg");
+    animation: earth 5s infinite;
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 0;
+        bottom: 8%;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        position: absolute;
+        transform: scale(1, 0.5) rotateZ(73deg);
+        background-image: radial-gradient(circle, rgba(0, 0, 0, 0.4) 18%, rgba(0, 0, 0, 0) 61%);
+    }
+}
+
+@keyframes earth {
+    0% {
+        background-position: 50% 0;
+    }
+    100% {
+        background-position: 50% 100%;
+    }
+}
