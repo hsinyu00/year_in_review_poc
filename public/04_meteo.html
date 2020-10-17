@@ -105,6 +105,39 @@
               opacity: 0.1;
           }
       }
+      .meteo {
+          width: 50px;
+          height: 50px;
+          background: url(images/meteorite.svg) no-repeat;
+          position: absolute;
+          top: -10%;
+          left: -10%;
+          transform: translate(0);
+          animation: drop 2s ease-out infinite;
+      }
+      .meteo:before {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            top: 10%;
+            left: -10%;
+            background: url(images/meteorite.svg) no-repeat;
+            position: absolute;
+            right: 80px;
+            top: 20%;
+            animation: drop 3s ease-out infinite;
+            animation-delay: 1s;
+      }
+      @keyframes drop {
+          0% {
+              transform: translate(0);
+          }
+          100% {
+              transform: translate(800%, 800%);
+          }
+      }
   </style>
 
   <!-- End Styles -->
@@ -124,6 +157,7 @@
 
   <div id="fullpage">
     <div class="star"></div>
+    <div class="meteo"></div>
 
   </div>
 </body>
