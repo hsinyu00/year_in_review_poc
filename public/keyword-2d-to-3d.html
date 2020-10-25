@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <title>Laravel Mix Boilerplate</title>
+
+  <meta name="description" content="A Laravel Mix boilerplate for building basic web applications with HTML, JavaScript and SASS." />
+  <!-- End SEO -->
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/ico" href="favicon.ico" />
+  <!-- End Favicon -->
+
+
+  <!-- Styles -->
+  <style>
+    body {
+        margin: 0;
+        overflow: hidden;
+        background-color: #000;
+    }
+    canvas {
+        width:100vw;
+        height:100vh;
+    }
+  </style>
+  <!-- End Styles -->
+
+</head>
+
+<body data-controller="" data-action="">
+    <canvas id="scene"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+<script>
+// https://www.basedesign.com/blog/how-to-render-3d-in-2d-canvas
+// Get the canvas element from the DOM
+const canvas = document.getElementById('scene');
+canvas.width = canvas.clientWidth;
+canvas.height = canvas.clientHeight;
+// Store the 2D context
+const ctx = canvas.getContext('2d');
+
+if (window.devicePixelRatio > 1) {
+  canvas.width = canvas.clientWidth * 2;
+  canvas.height = canvas.clientHeight * 2;
+  ctx.scale(2, 2);
+}
+
+/* ====================== */
+/* ====== VARIABLES ===== */
+/* ====================== */
+let width = canvas.offsetWidth; // Width of the canvas
+let height = canvas.offsetHeight; // Height of the canvas
+const dots = []; // Every dots in an array
+
+/* ====================== */
+/* ====== CONSTANTS ===== */
+/* ====================== */
+/* Some of those constants may change if the user resizes their screen but I still strongly believe they belong to the Constants part of the variables */
+const DOTS_AMOUNT = 100; // Amount of dots on the screen
+const DOT_RADIUS = 10; // Radius of the dots
+let PROJECTION_CENTER_X = width / 2; // X center of the canvas HTML
+let PROJECTION_CENTER_Y = height / 2; // Y center of the canvas HTML
+let PERSPECTIVE = width * 0.9;
+let words = ['快速竄升議題','世界12強棒球賽','香港反送中','長榮罷工','媽祖遶境','秋冬國民旅遊補助','屏東燈會', '秋行軍蟲', '南方澳大橋斷裂', '京都動畫縱火案','國民黨黨內初選', '快速竄升電影', '小丑', '復仇者聯盟：終局之戰', '返校', '天氣之子', '驚奇隊長', '寄生上流', '玩命關頭：特別行動', '蜘蛛人：離家日', '獅子王', '艾莉塔：戰鬥天使'];
+let wordIndex = 0;
+
+class Dot {
+  constructor() {
+    this.x = (Math.random() - 0.5) * width; // Give a random x position
+    this.y = (Math.random() - 0.5) * height; // Give a random y position
+    this.z = Math.random() * width; // Give a random z position
+
+    this.xProjected = 0;
+    this.yProjected = 0;
+    this.scaleProjected = 0;
+
+    this.word = getWord();
+
+    TweenMax.to(this, (Math.random() * 5 + 5), {
+      z: -width, //往外
+      repeat: -1,
+      ease: Power2.easeOut,
+      delay: Math.random() * -50 //密度
+    });
+  }
+  // Do some math to project the 3D position into the 2D canvas
+  project() {
+    this.scaleProjected = PERSPECTIVE / (PERSPECTIVE + this.z);
+    this.xProjected = (this.x * this.scaleProjected) + PROJECTION_CENTER_X;
+    this.yProjected = (this.y * this.scaleProjected) + PROJECTION_CENTER_Y;
+  }
+  // Draw the dot on the canvas
+  draw() {
+    this.project();
+    ctx.globalAlpha = Math.abs(1 - this.z / width);
+    ctx.font = '24px PingFang TC';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(this.word, this.xProjected, this.yProjected);
+  }
+}
+function createDots() {
+  // Empty the array of dots
+  dots.length = 0;
+
+  // Create a new dot based on the amount needed
+  for (let i = 0; i < DOTS_AMOUNT; i++) {
+    // Create a new dot and push it into the array
+    dots.push(new Dot());
+  }
+}
+function getWord() {
+    wordIndex++;
+    wordIndex = wordIndex % (words.length);
+    return words[wordIndex];
+}
+/* ====================== */
+/* ======== RENDER ====== */
+/* ====================== */
+function render() {
+  // Clear the scene
+  ctx.clearRect(0, 0, width, height);
+
+  // Loop through the dots array and draw every dot
+  for (var i = 0; i < dots.length; i++) {
+    dots[i].draw();
+  }
+
+  window.requestAnimationFrame(render);
+}
+
+
+// Function called after the user resized its screen
+function afterResize () {
+  width = canvas.offsetWidth;
+  height = canvas.offsetHeight;
+  if (window.devicePixelRatio > 1) {
+    canvas.width = canvas.clientWidth * 2;
+    canvas.height = canvas.clientHeight * 2;
+    ctx.scale(2, 2);
+  } else {
+    canvas.width = width;
+    canvas.height = height;
+  }
+  PROJECTION_CENTER_X = width / 2;
+  PROJECTION_CENTER_Y = height / 2;
+  PERSPECTIVE = width * 0.8;
+
+  createDots(); // Reset all dots
+}
+
+// Variable used to store a timeout when user resized its screen
+let resizeTimeout;
+// Function called right after user resized its screen
+function onResize () {
+  // Clear the timeout variable
+  resizeTimeout = window.clearTimeout(resizeTimeout);
+  // Store a new timeout to avoid calling afterResize for every resize event
+  resizeTimeout = window.setTimeout(afterResize, 500);
+}
+window.addEventListener('resize', onResize);
+
+// Populate the dots array with random dots
+createDots();
+
+// Render the scene
+window.requestAnimationFrame(render);
+
+</script>
+</body>
+</html>

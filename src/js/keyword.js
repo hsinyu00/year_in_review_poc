@@ -2,7 +2,7 @@ window.onload = function () {
   var canvas = document.getElementById("canv");
   var ctx = canvas.getContext("2d");
   var canvasBg = new Image();
-  canvasBg.src= "/year_in_review_poc/images/canvas-bg.jpg"
+  canvasBg.src= "images/canvas-bg.jpg"
 
   // Utilities
   function randomColor(i) {
